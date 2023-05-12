@@ -1,61 +1,48 @@
-let title
-let screens
-let screenPrice
-let rollback = 100
-let fullPrice
-let adaptive = true || false
-let service1
-let servicePrice1
-let service2
-let servicePrice2
-let servicePercentPrice
+let title = prompt('Как называется ваш проект?')
+let screens = prompt('Какие типы экранов нужно разработать')
+let screenPrice = +prompt('Сколько будет стоить данная работа?')
+let adaptive = confirm('Нужен ли адаптив на сайте?')
+let service1 = prompt('Какой дополнительный тип услуги нужен?')
+let servicePrice1 = +prompt('Сколько это будет стоить?')
+let service2 = prompt('Какой дополнительный тип услуги нужен?')
+let servicePrice2 = +prompt('Сколько это будет стоить?')
+let rollback = 10
+let fullPrice = screenPrice + servicePrice1 + servicePrice2
+let servicePercentPrice = fullPrice - (fullPrice * (rollback / 100))
 
 
-title = prompt('Как называется ваш проект?')
-screens = prompt('Какие типы экранов нужно разработать')
-screenPrice = +prompt('Сколько будет стоить данная работа?')
-adaptive = confirm('Нужен ли адаптив на сайте?')
-service1 = confirm('Нужен service1?')
-if (service1 === true) {
-    servicePrice1 = +prompt('Сколько это будет стоить?')
-} else servicePrice1 = 0
-
-service2 = confirm('Нужен service2?')
-if (service2 === true) {
-    servicePrice2 = +prompt('Сколько это будет стоить?')
-} else servicePrice2 = 0
-
-fullPrice = screenPrice + servicePrice1 + servicePrice2
-
-if (fullPrice >= 10000) {
-    fullPrice = fullPrice - (fullPrice / 100 * 10) 
-} else if (fullPrice >= 15000 && fullPrice < 30000) {
-    fullPrice = fullPrice - (fullPrice / 100 * 5)
-} else if (fullPrice < 15000 && fullPrice >= 0) {
-    console.log('Скидка не предусмотрена')
-} else if (fullPrice < 0) {
-    console.log('что то пошло не так')
+const showTypeOf = function (variable) {
+    console.log(variable, typeof variable)
 }
 
-servicePercentPrice = Math.ceil(fullPrice - rollback)
+const getRollbackMessage = function (price) {
+    if (price >= 30000) {
+        return 'Даем скидку в 10%'
+    } else if (price >= 15000 && price < 30000) {
+        return 'Даем скидку в 5%'
+    } else if (price < 15000 && price >= 0) {
+        return 'Скидка не предусмотрена'
+    } else {
+        return 'что то пошло не так'
+    }
+}
 
-//alert('Hello') 
-//console.log('Bye ')
-//console.log(typeof title)
-//console.log(typeof fullPrice)
-//console.log(typeof adaptive)
-//console.log(screens.length)
-//console.log('Стоимость верстки экранов' + ' ' + screenPrice + ' ' + 'рублей/долларов/гривен/юани' + ' ' + 'и' + ' ' + 'Стоимость разработки сайта' + ' ' + fullPrice + ' ' + 'рублей/долларов/гривен/юани')
-//console.log(screens.toLowerCase().split())
-//console.log(fullPrice * (rollback/100))
 
-console.log(title)
-console.log(screens)
-console.log(screenPrice)
-console.log(adaptive)
-console.log(service1)
-console.log(servicePrice1)
-console.log(service2)
-console.log(servicePrice2)
-console.log(fullPrice)
-console.log(servicePercentPrice)
+
+showTypeOf(title)
+showTypeOf(screenPrice)
+showTypeOf(adaptive)
+
+
+console.log(getRollbackMessage(fullPrice))
+// console.log(typeof title)
+// console.log(typeof screenprice)
+// console.log(typeof adaptive)
+
+// console.log(screens.length)
+// console.log('Стоимость верстки экранов' + ' ' + screenPrice + ' ' + 'рублей/долларов/гривен/юани' + ' ' + 'и' + ' ' + 'Стоимость разработки сайта' + ' ' + fullPrice + ' ' + 'рублей/долларов/гривен/юани')
+// console.log(screens.toLowerCase().split())
+// console.log(fullPrice * (rollback/100))
+
+
+// console.log(servicePercentPrice)
