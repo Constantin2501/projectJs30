@@ -1,3 +1,26 @@
+const h1 = document.getElementsByTagName('h1')
+console.log(h1[0]);
+const handlerBtn = document.getElementsByClassName("handler_btn")
+console.log(handlerBtn);
+const screenBtn = document.querySelector('.screen-btn')
+console.log(screenBtn);
+const percent = document.querySelectorAll('.percent')
+console.log(percent);
+const number = document.querySelectorAll('.number')
+console.log(number);
+const inputRange = document.querySelector('.rollback input[type="range"]')
+console.log(inputRange);
+const spanRange = document.querySelector('.rollback span.range-value')
+console.log(spanRange);
+const totalInput = document.getElementsByClassName('total-input')
+for (let index = 0; index < totalInput.length; index++) {
+    const element = totalInput[index];
+    console.log(element);
+}
+let screenBlock = document.querySelectorAll('.screen')
+console.log(screenBlock);
+
+
 // let title
 // let screens
 // let screenPrice
@@ -106,7 +129,7 @@ start: function () {
 
 }
 
-appData.start()
+// appData.start()
 
 
 
