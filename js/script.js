@@ -27,6 +27,7 @@ screenPrice: 0,
 adaptive: true,
 rollback: 10,
 fullPrice: 0,
+isError: false,
 servicePercentPrice: 0,
 servicePricesPercent: 0,
 servicePricesNumber: 0,
@@ -35,11 +36,25 @@ servicesNumber: {},
 init: function () {
     appData.addTitle()
 
-    startBtn.addEventListener('click', appData.start)
+    startBtn.addEventListener('click', appData.checkScreens)
+
     buttonPlus.addEventListener('click', appData.addScreenBlock)
 },
 addTitle: function () {
     document.title = title.textContent
+},
+checkScreens: function () {
+    screens = document.querySelectorAll('.screen')
+    screens.forEach(function (screen) {
+        const select = screen.querySelector('select')
+        const input = screen.querySelector('input')
+
+        if (select.value === '' || input.value === '' || input.value === 0) {
+            appData.isError = true
+        } 
+        
+    })
+
 },
 addScreens: function () {
     screens = document.querySelectorAll('.screen')
@@ -137,7 +152,7 @@ start: function () {
 }
 
 }
-
+console.log(appData);
 appData.init()
 
 
