@@ -5,6 +5,7 @@ const title = document.getElementsByTagName('h1')[0]
 const buttonPlus = document.querySelector('.screen-btn')
 const otherItemsPercent = document.querySelectorAll('.other-items.percent')
 const otherItemsNumber = document.querySelectorAll('.other-items.number')
+const cmsCheck = document.querySelector('#cms-open')
 
 const startBtn = document.getElementsByClassName('handler_btn')[0]
 const resetBtn = document.getElementsByClassName('handler_btn')[1]
@@ -18,16 +19,19 @@ const totalCountRollback = document.getElementsByClassName('total-input')[4]
 const inputRange = document.querySelector('.rollback input')
 const spanRangeValue = document.querySelector('.rollback .range-value')
 
+let mainTotal = document.querySelectorAll('.main-total__item')
 let screens = document.querySelectorAll('.screen')
+let otherItemsAll = document.querySelectorAll('.other-items')
+
 
 const appData = {
 title: '',
 screens: [],
-screenPrice: 0,
 adaptive: true,
+isError: false,
+screenPrice: 0,
 rollback: 0,
 fullPrice: 0,
-isError: false,
 totalCountSum: 0,
 servicePercentPrice: 0,
 servicePricesPercent: 0,
@@ -59,7 +63,54 @@ rollbackRange: function () {
     this.rollback = +inputRange.value
 },
 reset: function () {
-    location.reload()
+    screens = document.querySelectorAll('.screen')
+    mainTotal = document.querySelectorAll('.main-total__item')
+    otherItemsAll = document.querySelectorAll('.other-items')
+
+
+    startBtn.style = 'display: block'
+    resetBtn.style = 'display: none'
+
+    this.screenPrice = 0
+    this.rollback = 0
+    this.fullPrice = 0
+    this.totalCountSum = 0
+    this.servicePercentPrice = 0
+    this.servicePricesPercent = 0
+    this.servicePricesNumber = 0
+    this.screens = []
+    this.servicesPercent = {}
+    this.servicesNumber = {}
+
+    mainTotal.forEach((item) => {
+        const input = item.querySelector('input')
+        input.value = 0
+    })
+
+    screens.forEach((screen) => {
+        const select = screen.querySelector('select')
+        const input = screen.querySelector('input')
+        
+        select.disabled = false
+        input.disabled = false
+        select.selectedIndex = 0
+        input.value = 0
+    })
+
+    otherItemsAll.forEach((items) => {
+        const checkBox = items.querySelector('input')
+
+        checkBox.checked = false
+    })
+
+    for (let i = 1; i < screens.length; i++) {
+        screens[i].remove()
+    }
+
+    cmsCheck.checked = false
+
+    inputRange.value = 0
+    spanRangeValue.textContent = 0 + '%'
 },
 blockScreens: function () {
     screens = document.querySelectorAll('.screen')
@@ -67,7 +118,7 @@ blockScreens: function () {
     screens.forEach((screen) => {
         const select = screen.querySelector('select')
         const input = screen.querySelector('input')
-
+        
         select.disabled = true
         input.disabled = true
     })
@@ -168,18 +219,10 @@ addPrices: function() {
 
 
 },
-logger: function () {
-   console.log(this.fullPrice)
-   console.log(this.servicePercentPrice)
-   console.log(this.screens)
-},
 start: function () {
     this.addScreens()
     this.addServices()
     this.addPrices()
-    // this.getServicePercentPrices()
-
-    // this.logger()
     this.showResult()
     this.blockScreens()
 }
